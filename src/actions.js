@@ -21,10 +21,11 @@ export const action_addOperator = key => {
   if (/[+/*-]$/.test(text)) text = text.slice(0, -1);
   updateText(`${text}${key}`);
 };
-export const action_calculate = () => {
-  const { text } = store.getState();
-  if (/[+/*-.]$/.test(text)) return;
-  updateText(`${Number(Math.round(parseFloat(eval(text)) * 1e12) / 1e12)}`);
+export const action_calculate = (text = store.getState().text) => {
+  if (/[+/*-.]$/.test(text)) return null;
+  const result = `${Number(Math.round(parseFloat(eval(text)) * 1e12) / 1e12)}`;
+  updateText(result);
+  return result;
 };
 const updateText = text => {
   store.dispatch({
