@@ -24,7 +24,7 @@ export const action_addOperator = key => {
 export const action_calculate = () => {
   const { text } = store.getState();
   if (/[+/*-.]$/.test(text)) return;
-  updateText(`${eval(text)}`);
+  updateText(`${Number(Math.round(parseFloat(eval(text)) * 1e12) / 1e12)}`);
 };
 const updateText = text => {
   store.dispatch({
